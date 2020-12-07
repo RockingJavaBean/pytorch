@@ -267,6 +267,26 @@ Tensor& floor_divide_(Tensor& self, const Tensor& other) {
   return native::floor_divide_out(self, self, other);
 }
 
+std::tuple<Tensor, Tensor> divmod(const Tensor& self, Scalar other) {
+  return native::divmod(self, wrapped_scalar_tensor(other));
+}
+
+std::tuple<Tensor&, Tensor&> divmod_out(Tensor& division, Tensor& remainder,
+                                        const Tensor& self, Scalar other) {
+  return native::divmod_out(division, remainder, self, wrapped_scalar_tensor(other));
+}
+
+std::tuple<Tensor, Tensor> divmod(const Tensor& self, const Tensor& other) {
+  Tensor division = at::ones_like(self);
+  Tensor remainder = at::ones_like(other);
+  return std::tuple<Tensor, Tensor>(division, remainder);
+}
+
+std::tuple<Tensor&, Tensor&> divmod_out(Tensor& division, Tensor& remainder,
+                                        const Tensor& self, const Tensor& other) {
+  return std::tuple<Tensor &,Tensor &>{division, remainder};
+}
+
 Tensor& mul_out(Tensor& result, const Tensor& self, const Tensor& other) {
   auto iter = TensorIterator::binary_op(result, self, other);
   mul_stub(iter.device_type(), iter);

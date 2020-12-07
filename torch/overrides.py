@@ -363,6 +363,7 @@ def get_testing_overrides() -> Dict[Callable, Callable]:
         torch.digamma: lambda input, out=None: -1,
         torch.dist: lambda input, other, p=2: -1,
         torch.div: lambda input, other, out=None: -1,
+        torch.divmod: lambda input, other, out=None: -1,
         torch.divide: lambda input, other, out=None: -1,
         torch.dot: lambda input, other, out=None: -1,
         torch.dropout: lambda input, p, train, inplace=False: -1,

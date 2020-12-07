@@ -1771,6 +1771,26 @@
 - func: floor_divide_.Scalar(Tensor(a!) self, Scalar other) -> Tensor(a!)
   variants: method
 
+- func: divmod.Scalar_out(Tensor self, Scalar other, *, Tensor(a!) division, Tensor(b!) remainder) -> (Tensor(a!) division, Tensor(b!) remainder)
+  dispatch:
+    CPU, CUDA: divmod_out
+
+- func: divmod.Scalar(Tensor self, Scalar other) -> (Tensor division, Tensor remainder)
+  use_c10_dispatcher: full
+  variants: method, function
+  dispatch:
+    CPU, CUDA: divmod
+
+- func: divmod.Tensor_out(Tensor self, Tensor other, *, Tensor(a!) division, Tensor(b!) remainder) -> (Tensor(a!) division, Tensor(b!) remainder)
+  dispatch:
+    CPU, CUDA: divmod_out
+
+- func: divmod.Tensor(Tensor self, Tensor other) -> (Tensor division, Tensor remainder)
+  use_c10_dispatcher: full
+  variants: method, function
+  dispatch:
+    CPU, CUDA: divmod
+
 - func: frac(Tensor self) -> Tensor
   variants: function, method
   dispatch:
